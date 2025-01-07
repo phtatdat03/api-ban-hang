@@ -9,10 +9,13 @@
         mysqli_set_charset($conn,'utf8');
 
         // xử lí truy vấn
-        mysqli_query($conn, $sql);
+        $result = mysqli_query($conn, $sql);
 
         // đóng kết nối
         mysqli_close($conn);
+
+        //trả về kq
+        return $result;
     }
 
 //SELECT: 

@@ -71,6 +71,7 @@
         }
         return NULL;
     }
+
     function sendResponse($status, $data = null, $message = '') {
         $response = ['status' => $status];
         if ($data !== null) {
