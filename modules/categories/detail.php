@@ -8,15 +8,15 @@ require_once 'database/dbhelper.php';
 require_once 'utils/utility.php';
 
 try {
-    $sql = "SELECT * FROM user where id = " . $id;
-    $user = executeResult($sql, true);
+    $sql = "SELECT * FROM category where id = " . $id;
+    $category = executeResult($sql, true);
     
-    if ($user != null && count($user) > 0) {
+    if ($category != null && count($category) > 0) {
         http_response_code(200);
-        sendResponse('success', $user, 'Lấy thông tin người dùng thành công!');
+        sendResponse('success', $category, 'Lấy thông tin danh mục sản phẩm thành công!');
     } else {
         http_response_code(404);
-        sendResponse('error', null, 'Không tìm thấy thông tin người dùng!');
+        sendResponse('error', null, 'Không tìm thấy thông tin danh mục sản phẩm!');
     }        
 } catch (Exception $e) {
     http_response_code(500);

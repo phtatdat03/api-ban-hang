@@ -6,6 +6,8 @@ if (!empty($_SERVER['PATH_INFO'])) {
     $pathnameArr = array_filter(explode('/', $pathname));
     $pathnameArr = array_values($pathnameArr);
 
+
+// USER METHODS
     if ($method ==='GET' && $pathnameArr[0] === 'users' && empty($pathnameArr[1])) {
         require __DIR__ . '/modules/users/index.php';
     }
@@ -28,9 +30,20 @@ if (!empty($_SERVER['PATH_INFO'])) {
         $id = $pathnameArr[1];
         require __DIR__ . '/modules/users/delete.php';
     }
+
+
+// CATEGORY METHODS
+    if ($method ==='GET' && $pathnameArr[0] === 'categories' && empty($pathnameArr[1])) {
+        require __DIR__ . '/modules/categories/index.php';
+    }
+
+    if ($method ==='GET' && $pathnameArr[0] == 'categories' && !empty($pathnameArr[1])) {
+        $id = $pathnameArr[1];
+        require __DIR__ . '/modules/categories/detail.php';
+    }
+
+    if ($method === 'POST' && $pathnameArr[0] == 'categories' && empty($pathnameArr[1])) {
+        require __DIR__ . '/modules/categories/add.php';
+    }
 }
 
-//Mở phpmyadmin: http://127.0.0.1:8080/phpmyadmin/
-
-// http://localhost:8080/users ==> lấy danh sách users
-// http://localhost:8080/users/1 ==> lấy 1 user
