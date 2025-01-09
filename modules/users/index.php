@@ -1,15 +1,11 @@
 <?php
-header("Content-Type: application/json; charset=UTF-8");
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, X-Requested-With');
-
+require_once 'utils/cors-handle.php';
 require_once 'database/config.php';
 require_once 'database/dbhelper.php';
 require_once 'utils/utility.php';
 
 try {
-    $sql = "SELECT * FROM user";
+    $sql = "SELECT user.*, role.name AS role_name FROM user LEFT JOIN role ON user.role_id = role.id WHERE user.deleted = 0";
     $users = executeResult($sql, false);
     
     if ($users != null && count($users) > 0) {
