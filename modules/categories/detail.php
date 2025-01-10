@@ -1,4 +1,5 @@
 <?php
+
 require_once 'utils/cors-handle.php';
 require_once 'database/config.php';
 require_once 'database/dbhelper.php';

@@ -5,7 +5,7 @@ require_once 'database/dbhelper.php';
 require_once 'utils/utility.php';
 
 try {
-    $sql = "SELECT user.*, role.name AS role_name FROM user LEFT JOIN role ON user.role_id = role.id WHERE user.deleted = 0";
+    $sql = "SELECT user.*, role.name AS role_name FROM user LEFT JOIN role ON user.role_id = role.id";
     $users = executeResult($sql, false);
     
     if ($users != null && count($users) > 0) {

@@ -58,9 +58,8 @@ try{
         }
         $created_at =$updated_at = date("Y-m-d H:i:s");
         $role_id = isset($body['role_id']) ? $body['role_id'] : 2; //Role mặc định là USER
-        $deleted = isset($body['deleted']) ? (int) $body['deleted'] : 0;
 
-        $checkEmail = "SELECT id FROM user WHERE email ='$email' AND deleted = 0";
+        $checkEmail = "SELECT id FROM user WHERE email ='$email'";
         $existingUser = executeResult($checkEmail, true);
         if($existingUser != null) {
             http_response_code(400);
@@ -69,8 +68,8 @@ try{
         }
 
         $sql = "INSERT INTO user(fullname, email, phone_number, 
-                                address, password, role_id, created_at, updated_at, deleted)
-                            VALUES ('$fullname', '$email', '$phone_number', '$address', '$password', '$role_id', '$created_at', '$updated_at', '$deleted')";
+                                address, password, role_id, created_at, updated_at)
+                            VALUES ('$fullname', '$email', '$phone_number', '$address', '$password', '$role_id', '$created_at', '$updated_at')";
         $insertStatus = execute($sql);
         if ($insertStatus) {
             http_response_code(200);

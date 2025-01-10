@@ -5,7 +5,7 @@ require_once 'database/dbhelper.php';
 require_once 'utils/utility.php';
 
 try {
-    $sql = "SELECT * FROM user where id = " . $id;
+    $sql = "SELECT * FROM user where id = $id";
     $user = executeResult($sql, true);
     
     if ($user != null && count($user) > 0) {

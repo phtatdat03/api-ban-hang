@@ -4,31 +4,10 @@ require_once 'utils/cors-handle.php';
 require_once 'database/config.php';
 require_once 'database/dbhelper.php';
 require_once 'utils/utility.php';
-
+$body = file_get_contents('php://input');
+$body = json_decode($body, true);
 
 try{
-    $body = file_get_contents('php://input');
-    $body = json_decode($body, true);
-    
-    $deleted = isset($body['deleted']) ? (int) $body['deleted'] : 0;
-
-    // Nếu là xóa người dùng thì không cần validate form
-    if ($deleted === 1) {
-        $updated_at = date("Y-m-d H:i:s");
-        $sql = "UPDATE user SET deleted = 1, 
-                              updated_at = '$updated_at' 
-                              WHERE id = $id AND deleted = 0";
-        $updateStatus = execute($sql);
-        if ($updateStatus) {
-            http_response_code(200);
-            sendResponse('success', null, 'Xóa người dùng thành công!');
-        } else {
-            http_response_code(400);
-            sendResponse('failed', null, 'Xóa người dùng thất bại!');
-        }
-        exit;
-    }
-    
     //validate form chỉ khi cập nhật thông tin
     $errors = [];
     if (!isset($body['fullname']) || isset($body['fullname']) && $body['fullname'] === '') {
@@ -69,7 +48,7 @@ try{
         $address = $body['address'];
         $updated_at = date("Y-m-d H:i:s");
 
-        $checkEmail = "SELECT id FROM user WHERE email ='$email' AND id != $id AND deleted = 0";
+        $checkEmail = "SELECT id FROM user WHERE email ='$email' AND id != $id";
         $existingUser = executeResult($checkEmail, true);
         if($existingUser != null) {
             http_response_code(400);
@@ -83,7 +62,7 @@ try{
                                 phone_number = '$phone_number',
                                 address = '$address',
                                 updated_at = '$updated_at'
-                                WHERE id = $id AND deleted = 0";
+                                WHERE id = $id";
         $updateStatus = execute($sql);
         if ($updateStatus) {
             http_response_code(200);
